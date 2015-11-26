@@ -7,6 +7,8 @@ ENV BUILD_DEPS 'python gcc gcc-c++ git make bash'
 ENV http_proxy $CUSTOM_PROXY_HOST:3128
 ENV https_proxy $CUSTOM_PROXY_HOST:3128
 
+RUN ip addr
+
 RUN echo "HTTP Proxy: $http_proxy"
 RUN echo "HTTPS Proxy: $https_proxy"
 RUN echo "Pentest: $pentest"
