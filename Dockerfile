@@ -23,7 +23,7 @@ RUN set -x \
 && tar -xzvf master.tar.gz
 
 RUN echo "Running MSFVENOM"
-RUN msfvenom --platform linux -p linux/x64/shell/bind_tcp lport=8080 -f elf -o payload
+#RUN msfvenom --platform linux -p linux/x64/shell/bind_tcp lport=8080 -f elf -o payload
 
 RUN echo "Configuring Apache"
 RUN sed -i 's/Listen 80/Listen 8080/g' /etc/apache2/ports.conf
