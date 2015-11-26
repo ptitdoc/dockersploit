@@ -1,4 +1,4 @@
-FROM kalilinux/kali-linux-docker
+FROM scratch
 MAINTAINER Pentester
 
 #ENV PKG_JSON_URL=https://raw.githubusercontent.com/ptitdoc/dockersploit/master/package.json\
