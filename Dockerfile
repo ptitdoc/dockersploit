@@ -25,17 +25,6 @@ RUN set -x \
 RUN echo "Running MSFVENOM"
 #RUN msfvenom --platform linux -p linux/x64/shell/bind_tcp lport=8080 -f elf -o payload
 
-RUN echo "Configuring Apache"
-RUN sed -i 's/Listen 80/Listen 8080/g' /etc/apache2/ports.conf
-
-# Manually set up the apache environment variables
-ENV APACHE_RUN_USER pentest
-ENV APACHE_RUN_GROUP pentest
-ENV APACHE_LOG_DIR /var/log/apache2
-ENV APACHE_LOCK_DIR /var/lock/apache2
-ENV APACHE_PID_FILE /var/run/apache2.pid
-
-
 RUN echo "Creating user"
 RUN groupadd -r pentest \
 && useradd -r -g pentest pentest \
@@ -48,6 +37,6 @@ EXPOSE 8080
 
 #VOLUME ["/pentest-data"]
 
-CMD /usr/sbin/apache2ctl -D FOREGROUND
+CMD python -m SimpleHTTPServer 8080
 
 #CMD ["/pentest/payload"]
