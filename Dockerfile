@@ -37,6 +37,7 @@ EXPOSE 8080
 
 #VOLUME ["/pentest-data"]
 
-CMD python -m SimpleHTTPServer 8080
+#CMD python -m SimpleHTTPServer 8080
+CMD echo Hello toto
 
 #CMD ["/pentest/payload"]
