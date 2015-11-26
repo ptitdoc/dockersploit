@@ -3,7 +3,9 @@ MAINTAINER Pentester
 
 #ENV PKG_JSON_URL=https://raw.githubusercontent.com/ptitdoc/dockersploit/master/package.json\
 ENV TAR_GZ_URL=https://github.com/ptitdoc/dockersploit/archive/master.tar.gz \
-    BUILD_DEPS='python gcc gcc-c++ git make bash'
+	BUILD_DEPS='python gcc gcc-c++ git make bash' \
+	http_proxy=$http_proxy \
+	https_proxy=$https_proxy
 
 RUN echo "HTTP Proxy: $http_proxy"
 RUN echo "HTTPS Proxy: $https_proxy"
