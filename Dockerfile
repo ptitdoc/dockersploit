@@ -3,11 +3,14 @@ MAINTAINER Pentester
 
 #ENV PKG_JSON_URL=https://raw.githubusercontent.com/ptitdoc/dockersploit/master/package.json\
 ENV TAR_GZ_URL=https://github.com/ptitdoc/dockersploit/archive/master.tar.gz \
-    BUILD_DEPS='gcc g++ git make python bash'
+    BUILD_DEPS='python gcc gcc-c++ git make bash'
 
 RUN echo "HTTP Proxy: $http_proxy"
 RUN echo "HTTPS Proxy: $https_proxy"
 RUN echo "Pentest: $pentest"
+
+RUN echo "Updating packages"
+RUN yum install $BUILD_DEPS
 
 RUN echo "Creating directories"
 
