@@ -1,8 +1,5 @@
-FROM centos7
+FROM centos:7
 MAINTAINER Pentester
-ADD c7-docker.tar.xz /
-LABEL Vendro="CentOS"
-LABEL Licence=GPLv2
 
 #ENV PKG_JSON_URL=https://raw.githubusercontent.com/ptitdoc/dockersploit/master/package.json\
 ENV TAR_GZ_URL=https://github.com/ptitdoc/dockersploit/archive/master.tar.gz \
