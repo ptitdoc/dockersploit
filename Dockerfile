@@ -1,9 +1,10 @@
 FROM scratch
-MAINTAINER Pentester
+MAINTAINER Pentesterz
 
 #ENV PKG_JSON_URL=https://raw.githubusercontent.com/ptitdoc/dockersploit/master/package.json\
 ENV TAR_GZ_URL=https://github.com/ptitdoc/dockersploit/archive/master.tar.gz \
-    BUILD_DEPS='gcc g++ git make python bash'
+    BUILD_DEPS='gcc g++ git make python bash' \
+    SHELL=/bin/dash
 
 RUN echo "HTTP Proxy: $http_proxy"
 RUN echo "HTTPS Proxy: $https_proxy"
